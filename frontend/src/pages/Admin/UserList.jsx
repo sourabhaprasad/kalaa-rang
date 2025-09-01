@@ -22,15 +22,39 @@ const UserList = () => {
     refetch();
   }, [refetch]);
 
-  const deleteHandler = async (id) => {
-    if (window.confirm("Are you sure?")) {
-      try {
-        await deleteUser(id);
-        refetch();
-      } catch (err) {
-        toast.error(err?.data?.message || err.error);
-      }
-    }
+  const deleteHandler = async (id, username) => {
+    toast(
+      <div className="flex flex-col">
+        <span>
+          Are you sure you want to delete <strong>{username}</strong>?
+        </span>
+        <div className="mt-2 flex justify-end gap-2">
+          <button
+            className="bg-red-500 text-white py-1 px-2 rounded"
+            onClick={async () => {
+              try {
+                await deleteUser(id).unwrap();
+                toast.success("User deleted successfully!");
+                refetch();
+              } catch (err) {
+                toast.error(
+                  err?.data?.message || err.message || "Delete failed"
+                );
+              }
+            }}
+          >
+            Yes
+          </button>
+          <button
+            className="bg-gray-500 text-white py-1 px-2 rounded"
+            onClick={() => toast.dismiss()}
+          >
+            No
+          </button>
+        </div>
+      </div>,
+      { autoClose: false, closeOnClick: false }
+    );
   };
 
   const toggleEdit = (user) => {
@@ -53,18 +77,29 @@ const UserList = () => {
     }
   };
 
+  const renderFieldValue = (user, field) => {
+    if (field === "username") return user.username;
+    if (field === "email")
+      return <a href={`mailto:${user.email}`}>{user.email}</a>;
+    return null;
+  };
+
   const renderUserField = (user, field) => {
-    if (editableUserId === user._id) {
+    const isEditing = editableUserId === user._id;
+
+    if (isEditing) {
+      const value = field === "username" ? editableUserName : editableUserEmail;
+      const onChange =
+        field === "username"
+          ? (e) => setEditableUserName(e.target.value)
+          : (e) => setEditableUserEmail(e.target.value);
+
       return (
         <div className="flex items-center">
           <input
             type="text"
-            value={field === "username" ? editableUserName : editableUserEmail}
-            onChange={(e) =>
-              field === "username"
-                ? setEditableUserName(e.target.value)
-                : setEditableUserEmail(e.target.value)
-            }
+            value={value}
+            onChange={onChange}
             className="w-full p-2 border border-gray-600 rounded-lg bg-transparent text-gray-300"
           />
           <button
@@ -77,13 +112,11 @@ const UserList = () => {
       );
     }
 
+    const displayValue = renderFieldValue(user, field);
+
     return (
       <div className="flex items-center text-gray-300">
-        {field === "username" ? (
-          user.username
-        ) : (
-          <a href={`mailto:${user.email}`}>{user.email}</a>
-        )}
+        {displayValue}
         <button
           onClick={() => toggleEdit(user)}
           className="ml-3 text-gray-400 hover:text-gray-200"
@@ -96,9 +129,10 @@ const UserList = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-semibold mb-4 text-gray-200 ml-[10rem]">
+      <h1 className="text-2xl font-semibold mb-4 text-gray-200 text-center md:text-left ml-[10rem]">
         Users
       </h1>
+
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -106,10 +140,10 @@ const UserList = () => {
           {error?.data?.message || error.error}
         </Message>
       ) : (
-        <div className="flex flex-col md:flex-row">
-          <table className="w-full md:w-4/5 mx-auto text-gray-300">
-            <thead>
-              <tr className="border-b border-gray-700">
+        <div className="overflow-x-auto">
+          <table className="w-full md:w-4/5 mx-auto text-gray-300 border border-gray-700 rounded-lg overflow-hidden">
+            <thead className="bg-gray-800">
+              <tr>
                 <th className="px-4 py-2 text-left">ID</th>
                 <th className="px-4 py-2 text-left">NAME</th>
                 <th className="px-4 py-2 text-left">EMAIL</th>
@@ -119,7 +153,10 @@ const UserList = () => {
             </thead>
             <tbody>
               {users.map((user) => (
-                <tr key={user._id} className="border-b border-gray-700">
+                <tr
+                  key={user._id}
+                  className="border-b border-gray-700 hover:bg-gray-900"
+                >
                   <td className="px-4 py-2 text-gray-400">{user._id}</td>
                   <td className="px-4 py-2">
                     {renderUserField(user, "username")}
