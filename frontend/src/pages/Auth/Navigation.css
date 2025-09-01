@@ -1,0 +1,40 @@
+#navigation-container {
+  position: fixed; /* make it stick to the left */
+  top: 0;
+  left: 0;
+  height: 100vh; /* full height sidebar */
+  width: 4%;
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+  background-color: #111; /* just to see it */
+}
+
+#navigation-container:hover {
+  width: 15%;
+}
+
+.nav-item-name {
+  display: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
+#navigation-container:hover .nav-item-name {
+  display: block;
+  opacity: 1;
+}
+
+.search-input {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+#navigation-container:hover .search-input {
+  display: block;
+  opacity: 1;
+}
+
+#navigation-container:hover .search-icon {
+  display: none;
+  transition: opacity 0.2s ease-in-out;
+}

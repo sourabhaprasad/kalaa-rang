@@ -1,10 +1,17 @@
-import React from "react";
+import Navigation from "./pages/Auth/Navigation";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Outlet } from "react-router-dom";
 
 const App = () => {
   return (
-    <div>
-      <h1 className="text-purple-400">Hello</h1>
-    </div>
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
+      <Navigation />
+      <main className="py-3 bg-black text-white min-h-screen">
+        <Outlet />
+      </main>
+    </>
   );
 };
 

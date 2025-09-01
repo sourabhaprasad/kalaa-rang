@@ -1,1 +1,52 @@
 @import "tailwindcss";
+
+/* Make the whole app background black */
+body {
+  background-color: #000; /* black background */
+  color: white; /* default text color */
+  min-height: 100vh;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+/* Custom button style */
+.btn {
+  background-color: #8441d5;
+  color: white;
+  padding: 10px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 4px;
+  border: none;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background-color: #6d1bd7;
+}
+
+/* Custom form input style */
+.form-input {
+  margin-top: 4px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  width: 100%;
+  background-color: transparent;
+  color: white;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus {
+  border-color: #b39cd0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  -webkit-text-fill-color: white;
+  transition: background-color 5000s ease-in-out 0s;
+}
