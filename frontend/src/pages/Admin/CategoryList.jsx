@@ -8,6 +8,7 @@ import {
 } from "../../redux/api/categoryApiSlice";
 import CategoryForm from "../../components/CategoryForm";
 import Modal from "../../components/Modal";
+import AdminMenu from "./AdminMenu";
 
 const CategoryList = () => {
   const { data: categories } = useFetchCategoriesQuery();
@@ -89,6 +90,7 @@ const CategoryList = () => {
   return (
     <div className="ml-[10rem] flex flex-col md:flex-row ">
       <div className="md-w-3/4 p-3">
+        <AdminMenu />
         <div className="h-12 font-semibold text-lg">Manage Categories</div>
 
         {/* Create new category */}

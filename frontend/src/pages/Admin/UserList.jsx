@@ -8,6 +8,7 @@ import {
   useUpdateUserMutation,
 } from "../../redux/api/usersApiSlice";
 import { toast } from "react-toastify";
+import AdminMenu from "./AdminMenu";
 
 const UserList = () => {
   const { data: users, refetch, isLoading, error } = useGetUsersQuery();
@@ -79,8 +80,16 @@ const UserList = () => {
 
   const renderFieldValue = (user, field) => {
     if (field === "username") return user.username;
-    if (field === "email")
-      return <a href={`mailto:${user.email}`}>{user.email}</a>;
+    if (field === "email") {
+      return (
+        <span
+          className="text-blue-600 underline cursor-pointer"
+          onClick={() => (window.location.href = `mailto:${user.email}`)}
+        >
+          {user.email}
+        </span>
+      );
+    }
     return null;
   };
 
@@ -132,7 +141,7 @@ const UserList = () => {
       <h1 className="text-2xl font-semibold mb-4 text-gray-200 text-center md:text-left ml-[10rem]">
         Users
       </h1>
-
+      <AdminMenu />
       {isLoading ? (
         <Loader />
       ) : error ? (
