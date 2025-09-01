@@ -3,7 +3,7 @@ import Product from "../models/productModel.js";
 
 const addProduct = asyncHandler(async (req, res) => {
   try {
-    const { name, description, price, category, quantity } = req.fields;
+    const { name, description, price, category, quantity, image } = req.fields;
     //validation
     switch (true) {
       case !name:
@@ -16,6 +16,8 @@ const addProduct = asyncHandler(async (req, res) => {
         return res.json({ error: "Category is required" });
       case !quantity:
         return res.json({ error: "Quantity is required" });
+      case !image:
+        return res.json({ error: "Image is required" });
     }
     const product = new Product({ ...req.fields });
     await product.save();
@@ -48,6 +50,9 @@ const updateProduct = asyncHandler(async (req, res) => {
       { ...req.fields },
       { new: true, runValidators: true }
     );
+    console.log("PARAMS:", req.params);
+    console.log("FIELDS:", req.fields);
+
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
     }
