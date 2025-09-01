@@ -208,7 +208,7 @@ const AdminProductUpdate = () => {
               <button
                 type="button"
                 onClick={handleDelete}
-                className="px-4 py-2 mt-5 rounded-lg text-md font-semibold bg-pink-600"
+                className="px-4 py-2 mt-5 rounded-lg text-md font-semibold bg-purple-600"
               >
                 Delete
               </button>
