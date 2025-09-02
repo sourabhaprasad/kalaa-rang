@@ -22,6 +22,7 @@ Kalaa Rang is a comprehensive e-commerce solution that provides both customer-fa
 ## Features
 
 ### Customer Features
+
 - **Product Catalog**: Browse products with advanced filtering and search capabilities
 - **Shopping Cart**: Add, remove, and manage items with real-time updates
 - **User Authentication**: Secure registration, login, and profile management
@@ -30,6 +31,7 @@ Kalaa Rang is a comprehensive e-commerce solution that provides both customer-fa
 - **Responsive Design**: Optimized for desktop, tablet, and mobile devices
 
 ### Admin Features
+
 - **Dashboard Analytics**: Sales metrics, customer insights, and order statistics
 - **Product Management**: CRUD operations for products, categories, and inventory
 - **Order Processing**: View, update, and manage customer orders
@@ -37,6 +39,7 @@ Kalaa Rang is a comprehensive e-commerce solution that provides both customer-fa
 - **Real-time Updates**: Live inventory tracking and order status updates
 
 ### Technical Features
+
 - **Dark Theme UI**: Professional black and white design with subtle accents
 - **State Management**: Redux Toolkit (RTK) for predictable state management
 - **API Integration**: RTK Query for efficient data fetching and caching
@@ -47,6 +50,7 @@ Kalaa Rang is a comprehensive e-commerce solution that provides both customer-fa
 ## Technology Stack
 
 ### Frontend
+
 - **React 18.3.1**: Modern React with hooks and functional components
 - **Redux Toolkit (RTK) 2.8.2**: State management with RTK Query for API calls
 - **React Redux 9.2.0**: React bindings for Redux state management
@@ -58,6 +62,7 @@ Kalaa Rang is a comprehensive e-commerce solution that provides both customer-fa
 - **React Toastify 11.0.5**: Toast notifications for user feedback
 
 ### Backend
+
 - **Node.js**: JavaScript runtime environment
 - **Express.js 5.1.0**: Web application framework
 - **MongoDB**: NoSQL database with Mongoose ODM
@@ -68,6 +73,7 @@ Kalaa Rang is a comprehensive e-commerce solution that provides both customer-fa
 - **CORS 2.8.5**: Cross-origin resource sharing
 
 ### Additional Libraries
+
 - **React ApexCharts 1.7.0**: Interactive charts for admin dashboard
 - **Moment.js 2.30.1**: Date and time manipulation
 - **React Slick 0.31.0**: Carousel and slider components
@@ -124,6 +130,7 @@ kalaa-rang/
 ## Installation
 
 ### Prerequisites
+
 - Node.js (v16 or higher)
 - MongoDB (local installation or MongoDB Atlas)
 - npm or yarn package manager
@@ -131,16 +138,18 @@ kalaa-rang/
 ### Setup Instructions
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/sourabhaprasad/kalaa-rang.git
    cd kalaa-rang
    ```
 
 2. **Install dependencies**
+
    ```bash
    # Install root dependencies
    npm install
-   
+
    # Install frontend dependencies
    cd frontend
    npm install
@@ -149,6 +158,7 @@ kalaa-rang/
 
 3. **Environment Configuration**
    Create a `.env` file in the root directory:
+
    ```env
    NODE_ENV=development
    PORT=5000
@@ -158,18 +168,20 @@ kalaa-rang/
    ```
 
 4. **Database Setup**
+
    - Ensure MongoDB is running locally or configure MongoDB Atlas
    - The application will automatically create necessary collections
 
 5. **Start the application**
+
    ```bash
    # Development mode (runs both frontend and backend)
    npm run dev
-   
+
    # Or run separately:
    # Backend only
    npm run backend
-   
+
    # Frontend only (in another terminal)
    npm run frontend
    ```
@@ -178,13 +190,13 @@ kalaa-rang/
 
 ### Environment Variables
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `NODE_ENV` | Application environment | Yes |
-| `PORT` | Backend server port | Yes |
-| `MONGO_URI` | MongoDB connection string | Yes |
-| `JWT_SECRET` | Secret key for JWT tokens | Yes |
-| `PAYPAL_CLIENT_ID` | PayPal integration client ID | Yes |
+| Variable           | Description                  | Required |
+| ------------------ | ---------------------------- | -------- |
+| `NODE_ENV`         | Application environment      | Yes      |
+| `PORT`             | Backend server port          | Yes      |
+| `MONGO_URI`        | MongoDB connection string    | Yes      |
+| `JWT_SECRET`       | Secret key for JWT tokens    | Yes      |
+| `PAYPAL_CLIENT_ID` | PayPal integration client ID | Yes      |
 
 ### Redux Store Configuration
 
@@ -192,12 +204,12 @@ The application uses Redux Toolkit for state management with the following struc
 
 ```javascript
 // store.js - RTK store configuration
-import { configureStore } from '@reduxjs/toolkit'
-import { apiSlice } from './api/apiSlice'
-import authSliceReducer from './features/auth/authSlice'
-import favoritesSliceReducer from './features/favorites/favoritesSlice'
-import cartSliceReducer from './features/cart/cartSlice'
-import shopSliceReducer from './features/shop/shopSlice'
+import { configureStore } from "@reduxjs/toolkit";
+import { apiSlice } from "./api/apiSlice";
+import authSliceReducer from "./features/auth/authSlice";
+import favoritesSliceReducer from "./features/favorites/favoritesSlice";
+import cartSliceReducer from "./features/cart/cartSlice";
+import shopSliceReducer from "./features/shop/shopSlice";
 
 export const store = configureStore({
   reducer: {
@@ -209,7 +221,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
-})
+});
 ```
 
 ### RTK Query API Integration
@@ -218,22 +230,23 @@ The application leverages RTK Query for efficient API state management:
 
 ```javascript
 // apiSlice.js - Base API configuration
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apiSlice = createApi({
-  reducerPath: 'api',
+  reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: '/api',
-    credentials: 'include',
+    baseUrl: "/api",
+    credentials: "include",
   }),
-  tagTypes: ['Product', 'Order', 'User', 'Category'],
+  tagTypes: ["Product", "Order", "User", "Category"],
   endpoints: (builder) => ({}),
-})
+});
 ```
 
 ## Usage
 
 ### Customer Workflow
+
 1. **Registration/Login**: Create account or sign in
 2. **Browse Products**: Explore product catalog with filters
 3. **Add to Cart**: Select products and manage cart
@@ -241,6 +254,7 @@ export const apiSlice = createApi({
 5. **Order Tracking**: Monitor order status and history
 
 ### Admin Workflow
+
 1. **Admin Login**: Access admin panel with elevated privileges
 2. **Dashboard**: View sales analytics and platform metrics
 3. **Product Management**: Add, edit, or remove products
@@ -250,30 +264,33 @@ export const apiSlice = createApi({
 ### Key Redux Patterns
 
 **RTK Query Data Fetching:**
+
 ```javascript
 // Using RTK Query hooks for data fetching
-const { data: products, isLoading, error } = useGetProductsQuery()
-const [createProduct] = useCreateProductMutation()
+const { data: products, isLoading, error } = useGetProductsQuery();
+const [createProduct] = useCreateProductMutation();
 ```
 
 **State Management with RTK:**
+
 ```javascript
 // Redux slice for cart management
 const cartSlice = createSlice({
-  name: 'cart',
+  name: "cart",
   initialState: { cartItems: [] },
   reducers: {
     addToCart: (state, action) => {
       // RTK uses Immer for immutable updates
-      state.cartItems.push(action.payload)
-    }
-  }
-})
+      state.cartItems.push(action.payload);
+    },
+  },
+});
 ```
 
 ## API Documentation
 
 ### Authentication Endpoints
+
 - `POST /api/users/auth` - User login
 - `POST /api/users/register` - User registration
 - `POST /api/users/logout` - User logout
@@ -281,6 +298,7 @@ const cartSlice = createSlice({
 - `PUT /api/users/profile` - Update user profile
 
 ### Product Endpoints
+
 - `GET /api/products` - Get all products
 - `GET /api/products/:id` - Get product by ID
 - `POST /api/products` - Create new product (Admin)
@@ -288,6 +306,7 @@ const cartSlice = createSlice({
 - `DELETE /api/products/:id` - Delete product (Admin)
 
 ### Order Endpoints
+
 - `GET /api/orders` - Get user orders
 - `GET /api/orders/:id` - Get order by ID
 - `POST /api/orders` - Create new order
@@ -295,22 +314,8 @@ const cartSlice = createSlice({
 - `PUT /api/orders/:id/deliver` - Mark order as delivered (Admin)
 
 ### Category Endpoints
+
 - `GET /api/categories` - Get all categories
 - `POST /api/categories` - Create category (Admin)
 - `PUT /api/categories/:id` - Update category (Admin)
 - `DELETE /api/categories/:id` - Delete category (Admin)
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/new-feature`)
-3. Commit your changes (`git commit -am 'Add new feature'`)
-4. Push to the branch (`git push origin feature/new-feature`)
-5. Create a Pull Request
-
-### Development Guidelines
-- Follow React and Node.js best practices
-- Use RTK Query for all API interactions
-- Maintain consistent code formatting
-- Write descriptive commit messages
-- Test functionality before submitting PRs
