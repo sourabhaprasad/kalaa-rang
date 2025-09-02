@@ -3,29 +3,47 @@ import HeartIcon from "./HeartIcon";
 
 const SmallProduct = ({ product }) => {
   return (
-    <div className="w-full sm:w-[18rem] md:w-[20rem] p-3 mx-auto ml-[5rem] cursor-pointer">
-      <Link
-        to={`/product/${product._id}`}
-        className="block hover:scale-105 transition-transform duration-300"
-      >
-        <div className="relative group">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-[18rem] sm:h-[20rem] md:h-[22rem] rounded object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-          <HeartIcon product={product} />
-        </div>
+    <div className="group relative w-[280px] h-[380px] perspective-1000">
+      {/* Main Card Container */}
+      <div className="relative w-full h-full bg-black rounded-lg shadow-xl border border-gray-700 transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+        
+        
+        <Link to={`/product/${product._id}`} className="block h-full">
+          {/* Image Section */}
+          <div className="relative h-[240px] overflow-hidden rounded-t-lg">
+            
+            {/* Product Image */}
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-full object-cover transition-all duration-500 ease-out group-hover:scale-105 group-hover:brightness-110"
+            />
+            
+            {/* Subtle Overlay */}
+          </div>
 
-        <div className="p-3">
-          <h2 className="flex justify-between items-center text-sm sm:text-base font-medium">
-            <span className="truncate">{product.name}</span>
-            <span className="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-0.5 rounded-full dark:bg-purple-900 dark:text-purple-300">
-              ₹{product.price}
-            </span>
-          </h2>
-        </div>
-      </Link>
+          {/* Content Section */}
+          <div className="relative p-5 flex flex-col justify-between h-[140px]">
+            {/* Decorative Line */}
+            <div className="absolute top-0 left-5 right-5 h-px bg-gray-700"></div>
+            
+            {/* Product Title */}
+            <h3 className="text-base font-bold text-white leading-tight line-clamp-2 mb-3">
+              {product.name}
+            </h3>
+            
+            {/* Price */}
+            <div className="flex items-center justify-between mt-auto">
+              <span className="text-xl font-black text-white">
+                ₹{product.price}
+              </span>
+            </div>
+          </div>
+        </Link>
+
+        <HeartIcon product={product} />
+
+      </div>
     </div>
   );
 };

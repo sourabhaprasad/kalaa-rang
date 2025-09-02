@@ -39,64 +39,101 @@ const Login = () => {
   };
 
   return (
-    <section className="flex min-h-screen">
-      {/* Left form */}
-      <div className="flex-1 pl-40 pt-20 ">
-        <h1 className="text-2xl font-semibold mb-4 text-white">Login</h1>
-        <form onSubmit={submitHandler} className="w-96">
-          {/* Email */}
-          <div className="my-6">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-white"
-            >
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="form-input"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          {/* Password */}
-          <div className="my-6">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-white"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="form-input"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button type="submit" disabled={isLoading} className="btn">
-            {isLoading ? "Signing In..." : "Sign in"}
-          </button>
-          {isLoading && <Loader />}
-        </form>
-        <p className="text-white mt-4">
-          New Customer?{" "}
-          <Link
-            to={redirect ? `/register?redirect=${redirect}` : "/register"}
-            className="text-[#B39CD0] hover:underline"
-          >
-            Register
-          </Link>
-        </p>
-      </div>
+    <div className="min-h-screen bg-black flex items-center justify-center p-6 pt-20">
 
-      {/* Right image */}
-      <div className="flex-1 flex items-center justify-center bg-black">
-        <img src="/logo.png" alt="Logo" className="max-w-full object-contain" />
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+        {/* Left - Login Form */}
+        <div className="w-full max-w-md mx-auto lg:mx-0">
+          <div className="bg-black rounded-lg border border-gray-700 shadow-xl p-8">
+            {/* Header */}
+            <div className="text-center mb-8">
+              <h1 className="text-4xl font-bold text-white mb-2">
+                Welcome Back
+              </h1>
+              <p className="text-gray-400">Sign in to your account</p>
+            </div>
+
+            <form onSubmit={submitHandler} className="space-y-6">
+              {/* Email */}
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-2">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  required
+                  className="w-full p-4 bg-gradient-to-br from-gray-800/80 to-gray-700/80 backdrop-blur-sm rounded-2xl border border-gray-600/50 text-white placeholder-gray-400 focus:border-violet-400/50 focus:ring-2 focus:ring-violet-400/20 transition-all duration-300"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+
+              {/* Password */}
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-200 mb-2">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  required
+                  className="w-full p-4 bg-gradient-to-br from-gray-800/80 to-gray-700/80 backdrop-blur-sm rounded-2xl border border-gray-600/50 text-white placeholder-gray-400 focus:border-violet-400/50 focus:ring-2 focus:ring-violet-400/20 transition-all duration-300"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full px-8 py-4 bg-white text-black font-bold rounded-lg transition-colors hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isLoading ? "Signing In..." : "Sign In"}
+              </button>
+
+              {isLoading && (
+                <div className="flex justify-center">
+                  <Loader />
+                </div>
+              )}
+            </form>
+
+            {/* Register Link */}
+            <div className="text-center mt-6 pt-6 border-t border-gray-700">
+              <p className="text-gray-400">
+                New to Kalaa Rang?{" "}
+                <Link
+                  to={redirect ? `/register?redirect=${redirect}` : "/register"}
+                  className="text-white hover:text-gray-300 font-medium transition-colors"
+                >
+                  Create an account
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Right - Branding */}
+        <div className="hidden lg:flex flex-col items-center justify-center text-center">
+          <div className="relative">
+            <div className="w-64 h-64 bg-gradient-to-br from-violet-500/20 to-purple-600/20 rounded-full flex items-center justify-center mb-8 backdrop-blur-xl border border-violet-400/30">
+              <img src="/logo.png" alt="Kalaa Rang Logo" className="w-32 h-32 object-contain" />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-purple-600/10 rounded-full blur-2xl"></div>
+          </div>
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent mb-4">
+            Kalaa Rang
+          </h2>
+          <p className="text-gray-400 text-lg max-w-md leading-relaxed">
+            Discover extraordinary products crafted with passion and designed to elevate your everyday experience.
+          </p>
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 

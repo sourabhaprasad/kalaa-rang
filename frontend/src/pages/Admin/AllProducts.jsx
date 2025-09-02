@@ -9,7 +9,7 @@ const AllProducts = () => {
   if (isError) return <div>Error loading products</div>;
 
   return (
-    <div className="container mx-[9rem]">
+    <div className="container mx-[9rem] pt-20">
       <div className="flex flex-col md:flex-row">
         <div className="p-3 md:w-3/4">
           <div className="ml-[2rem] text-xl font-bold h-12 mb-4">

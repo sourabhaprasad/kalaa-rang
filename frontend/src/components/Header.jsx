@@ -15,7 +15,7 @@ const Header = () => {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row justify-around">
+    <div className="flex flex-col lg:flex-row justify-around m-[8rem]">
       <div className="w-full lg:w-1/2 grid grid-cols-2 gap-4 p-2">
         {data.map((product) => (
           <SmallProduct key={product._id} product={product} />

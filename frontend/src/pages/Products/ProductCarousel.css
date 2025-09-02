@@ -1,0 +1,49 @@
+/* Custom styles for ProductCarousel */
+.product-carousel .slick-dots {
+  bottom: -50px;
+  display: flex !important;
+  justify-content: center;
+  gap: 8px;
+}
+
+.product-carousel .slick-dots li {
+  width: auto;
+  height: auto;
+  margin: 0;
+}
+
+.product-carousel .slick-dots li button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(156, 163, 175, 0.3);
+  border: 2px solid rgba(139, 92, 246, 0.3);
+  transition: all 0.3s ease;
+  font-size: 0;
+  padding: 0;
+}
+
+.product-carousel .slick-dots li button:hover {
+  background: rgba(139, 92, 246, 0.5);
+  border-color: rgba(139, 92, 246, 0.6);
+  transform: scale(1.2);
+}
+
+.product-carousel .slick-dots li.slick-active button {
+  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+  border-color: #8b5cf6;
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+}
+
+.product-carousel .slick-track {
+  display: flex;
+  align-items: center;
+}
+
+.product-carousel .slick-slide {
+  height: auto;
+}
+
+.product-carousel .slick-slide > div {
+  height: 100%;
+}

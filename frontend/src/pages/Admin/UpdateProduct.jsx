@@ -7,7 +7,7 @@ import {
   useGetProductByIdQuery,
   useUploadProductImageMutation,
 } from "../../redux/api/productApiSlice";
-import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice";
+import { useGetCategoriesQuery } from "../../redux/api/categoryApiSlice";
 import { toast } from "react-toastify";
 
 const AdminProductUpdate = () => {
@@ -15,7 +15,7 @@ const AdminProductUpdate = () => {
   const navigate = useNavigate();
 
   const { data: productData } = useGetProductByIdQuery(id);
-  const { data: categories = [] } = useFetchCategoriesQuery();
+  const { data: categories = [] } = useGetCategoriesQuery();
 
   const [uploadProductImage] = useUploadProductImageMutation();
   const [updateProduct] = useUpdateProductMutation();
@@ -92,33 +92,36 @@ const AdminProductUpdate = () => {
   };
 
   return (
-    <div className="container xl:mx-[9rem] sm:mx-0">
-      <div className="flex flex-col md:flex-row">
+    <div className="min-h-screen bg-black p-6 pt-20">
+      <div className="max-w-7xl mx-auto">
         <AdminMenu />
-        <div className="md:w-3/4 p-6">
-          <h2 className="text-xl font-bold mb-6">Update / Delete Product</h2>
+        
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-white mb-2">Update / Delete Product</h1>
+          <p className="text-gray-400">Modify product details or remove from catalog</p>
+        </div>
+        
+        <div className="bg-black rounded-lg border border-gray-700 shadow-xl p-6">
 
           {/* Image Preview */}
           {image && (
-            <div className="mb-4">
+            <div className="mb-6">
               <img
                 src={image}
                 alt="product"
-                className="w-full max-h-72 object-contain rounded-md"
+                className="w-full max-h-72 object-contain rounded-lg bg-gray-800"
               />
             </div>
           )}
 
           {/* Upload Image */}
-          <div className="mb-4">
-            <label className="block font-medium mb-2">Upload Image</label>
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-200 mb-2">Upload Image</label>
             <label className="block w-full border border-white/50 rounded-2xl py-6 text-center cursor-pointer">
               {image ? image.split("/").pop() : "Upload Image"}
               <input
-                type="file"
-                accept="image/*"
+                className="w-full p-4 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all"
                 onChange={uploadFileHandler}
-                className="hidden"
               />
             </label>
           </div>
@@ -127,21 +130,25 @@ const AdminProductUpdate = () => {
           <form className="space-y-5" onSubmit={handleSubmit}>
             {/* Name + Price */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block mb-1">Name</label>
+              <div className="mb-6">
+                <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-2">
+                  Product Name
+                </label>
                 <input
                   type="text"
-                  className="form-input w-full"
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
                 />
               </div>
-              <div>
-                <label className="block mb-1">Price</label>
+              <div className="mb-6">
+                <label htmlFor="price" className="block text-sm font-medium text-gray-200 mb-2">
+                  Price ($)
+                </label>
                 <input
                   type="number"
-                  className="form-input w-full"
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   required
@@ -151,21 +158,24 @@ const AdminProductUpdate = () => {
 
             {/* Quantity + Stock */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block mb-1">Quantity</label>
+              <div className="mb-6">
+                <label htmlFor="quantity" className="block text-sm font-medium text-gray-200 mb-2">
+                  Quantity
+                </label>
                 <input
                   type="number"
-                  min="1"
-                  className="form-input w-full"
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                 />
               </div>
-              <div>
-                <label className="block mb-1">Count In Stock</label>
+              <div className="mb-6">
+                <label htmlFor="stock" className="block text-sm font-medium text-gray-200 mb-2">
+                  Count In Stock
+                </label>
                 <input
                   type="number"
-                  className="form-input w-full"
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all"
                   value={stock}
                   onChange={(e) => setStock(e.target.value)}
                 />
@@ -173,23 +183,25 @@ const AdminProductUpdate = () => {
             </div>
 
             {/* Description */}
-            <div>
-              <label className="block mb-1">Description</label>
+            <div className="mb-6">
+              <label htmlFor="description" className="block text-sm font-medium text-gray-200 mb-2">
+                Description
+              </label>
               <textarea
-                className="form-input w-full"
+                rows="4"
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all resize-none"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                rows="4"
               />
             </div>
 
             {/* Category */}
             <div>
-              <label className="block mb-1">Category</label>
+              <label className="block text-sm font-medium text-gray-200 mb-2">Category</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="form-input w-full"
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all"
               >
                 <option value="">Select category</option>
                 {categories?.map((c) => (
@@ -201,16 +213,19 @@ const AdminProductUpdate = () => {
             </div>
 
             {/* Buttons */}
-            <div className="flex space-x-4">
-              <button className="px-4 py-2 mt-5 rounded-lg text-md font-semibold  bg-green-600 mr-6">
-                Update
+            <div className="flex gap-4">
+              <button
+                type="submit"
+                className="flex-1 px-8 py-4 bg-white text-black font-bold rounded-lg transition-colors hover:bg-gray-100"
+              >
+                Update Product
               </button>
               <button
                 type="button"
                 onClick={handleDelete}
-                className="px-4 py-2 mt-5 rounded-lg text-md font-semibold bg-purple-600"
+                className="flex-1 px-8 py-4 bg-gray-800 text-white font-bold rounded-lg border border-gray-700 transition-colors hover:bg-gray-700"
               >
-                Delete
+                Delete Product
               </button>
             </div>
           </form>

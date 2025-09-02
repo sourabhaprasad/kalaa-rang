@@ -8,15 +8,15 @@ const Favorites = () => {
 
   if (favorites.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 pt-20">
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-4">Your Favorites</h1>
           <p className="text-gray-600 mb-6">
             You haven't added any products to your favorites yet.
           </p>
           <Link
-            to="/"
-            className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors"
+            to="/shop"
+            className="bg-white text-black px-6 py-3 rounded-lg hover:bg-gray-300 hover:text-black transition-colors"
           >
             Start Shopping
           </Link>
@@ -26,7 +26,7 @@ const Favorites = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 pt-20">
       <h1 className="text-3xl font-bold mb-8 text-center">
         Your Favorites ({favorites.length})
       </h1>

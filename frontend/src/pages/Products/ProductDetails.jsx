@@ -63,127 +63,166 @@ const ProductDetails = () => {
     );
 
   return (
-    <div className="mx-10 mt-10 text-white flex flex-col gap-10">
-      <Link
-        to="/"
-        className="text-white font-semibold hover:underline mb-4 ml-[3rem]"
-      >
-        &larr; Go Back
-      </Link>
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      
+      <div className="relative z-10 container mx-auto px-6 py-12 pt-20">
+        {/* Back Button */}
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-white hover:text-gray-300 font-semibold transition-colors mb-8"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Home
+        </Link>
 
-      {/* Top: Image & Main Details */}
-      <div className="flex flex-col lg:flex-row gap-10">
-        <div className="relative lg:w-1/2">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-[40rem] object-contain rounded-lg"
-          />
-          <HeartIcon product={product} />
-        </div>
-
-        <div className="flex-1 flex flex-col gap-4">
-          <h2 className="text-3xl font-bold">{product.name}</h2>
-          <p className="text-white/80">{product.description}</p>
-          <div className="flex justify-between items-center flex-wrap mt-4 gap-4">
-            {/* Ratings */}
-            <Ratings
-              value={product.rating}
-              text={`${product.numReviews} reviews`}
-            />
-
-            {/* Quantity Dropdown */}
-            {product.countInStock > 0 && (
-              <div>
-                <select
-                  id="qty"
-                  value={qty}
-                  onChange={(e) => setQty(Number(e.target.value))}
-                  className="p-2 w-[6rem] rounded-lg text-black"
-                >
-                  {[...Array(product.countInStock).keys()].map((x) => (
-                    <option key={x + 1} value={x + 1}>
-                      {x + 1}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
-          </div>
-
-          <div className="flex gap-8 flex-wrap mt-4">
-            <div>
-              <p className="flex items-center gap-2">
-                <FaClock /> Added: {moment(product.createAt).fromNow()}
-              </p>
-              <p className="flex items-center gap-2">
-                <FaStar /> Reviews: {product.numReviews}
-              </p>
-            </div>
-            <div>
-              <p className="flex items-center gap-2">
-                <FaStar /> Rating: {product.rating}
-              </p>
-              <p className="flex items-center gap-2">
-                <FaShoppingCart /> Quantity: {product.quantity}
-              </p>
-              <p className="flex items-center gap-2">
-                <FaBox /> In Stock: {product.countInStock}
-              </p>
+        {/* Product Details */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 mb-16">
+          {/* Product Image */}
+          <div className="relative group">
+            <div className="relative bg-black rounded-lg border border-gray-700 shadow-xl overflow-hidden p-8">
+              
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-[500px] object-contain rounded-lg transition-transform duration-300 group-hover:scale-105"
+              />
+              <HeartIcon product={product} />
             </div>
           </div>
 
-          <p className="text-4xl font-extrabold my-4">₹{product.price}</p>
+          {/* Product Info */}
+          <div className="space-y-8">
+            {/* Header */}
+            <div className="space-y-4">
+              <h1 className="text-4xl font-black text-white leading-tight">
+                {product.name}
+              </h1>
+              <p className="text-gray-400 text-lg leading-relaxed">{product.description}</p>
+            </div>
 
-          {/* Add to Cart */}
-          {product.countInStock > 0 && (
-            <div className="my-4 flex items-center gap-4">
-              <label htmlFor="qty" className="font-medium">
-                Qty:
-              </label>
-              <div className="relative">
-                <select
-                  id="qty"
-                  value={qty}
-                  onChange={(e) => setQty(Number(e.target.value))}
-                  className="appearance-none bg-gray-800 text-white p-2 rounded pr-8 w-20"
-                >
-                  {[...Array(product.countInStock).keys()].map((x) => (
-                    <option key={x + 1} value={x + 1}>
-                      {x + 1}
-                    </option>
-                  ))}
-                </select>
-                {/* Down Arrow */}
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
-                  ▼
+            {/* Price */}
+            <div className="bg-black rounded-lg border border-gray-700 p-6">
+              <div className="flex items-center justify-between">
+                <span className="text-5xl font-black text-white">
+                  ₹{product.price}
+                </span>
+                <div className="text-right">
+                  <Ratings value={product.rating} text={`${product.numReviews} reviews`} />
                 </div>
               </div>
             </div>
-          )}
 
-          <button
-            onClick={addToCartHandler}
-            disabled={product.countInStock === 0}
-            className="bg-purple-600 hover:bg-purple-700 transition-colors text-white px-6 py-2 rounded font-semibold w-fit"
-          >
-            Add To Cart
-          </button>
+            {/* Product Stats */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-black rounded-lg border border-gray-700 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-gray-800 rounded-lg">
+                    <FaClock className="text-white" />
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Added</p>
+                    <p className="text-white font-semibold">{moment(product.createAt).fromNow()}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-black rounded-lg border border-gray-700 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-gray-800 rounded-lg">
+                    <FaBox className="text-white" />
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">In Stock</p>
+                    <p className="text-white font-semibold">{product.countInStock}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-black rounded-lg border border-gray-700 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-gray-800 rounded-lg">
+                    <FaStar className="text-white" />
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Rating</p>
+                    <p className="text-white font-semibold">{product.rating}/5</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-black rounded-lg border border-gray-700 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-gray-800 rounded-lg">
+                    <FaShoppingCart className="text-white" />
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Reviews</p>
+                    <p className="text-white font-semibold">{product.numReviews}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Quantity and Add to Cart */}
+            {product.countInStock > 0 && (
+              <div className="bg-black rounded-lg border border-gray-700 p-6 space-y-6">
+                <div className="flex items-center gap-4">
+                  <label className="text-white font-semibold">Quantity:</label>
+                  <div className="relative">
+                    <select
+                      value={qty}
+                      onChange={(e) => setQty(Number(e.target.value))}
+                      className="appearance-none bg-gray-800 border border-gray-700 rounded-lg text-white px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all"
+                    >
+                      {[...Array(product.countInStock).keys()].map((x) => (
+                        <option key={x + 1} value={x + 1}>
+                          {x + 1}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+                      <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  onClick={addToCartHandler}
+                  className="w-full bg-white hover:bg-gray-100 text-black font-bold py-4 px-8 rounded-lg transition-colors"
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    <FaShoppingCart />
+                    Add to Cart
+                  </span>
+                </button>
+              </div>
+            )}
+
+            {product.countInStock === 0 && (
+              <div className="bg-black rounded-lg border border-gray-700 p-6 text-center">
+                <p className="text-gray-400 font-semibold text-lg">Out of Stock</p>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
 
-      {/* Bottom: Reviews & Tabs */}
-      <div className="mt-10 ml-[4rem]">
-        <ProductTabs
-          loadingProductReview={loadingProductReview}
-          userInfo={userInfo}
-          submitHandler={submitHandler}
-          rating={rating}
-          setRating={setRating}
-          comment={comment}
-          setComment={setComment}
-          product={product}
-        />
+        {/* Reviews & Tabs */}
+        <div className="bg-black rounded-lg border border-gray-700 shadow-xl overflow-hidden">
+          <ProductTabs
+            loadingProductReview={loadingProductReview}
+            userInfo={userInfo}
+            submitHandler={submitHandler}
+            rating={rating}
+            setRating={setRating}
+            comment={comment}
+            setComment={setComment}
+            product={product}
+          />
+        </div>
       </div>
     </div>
   );

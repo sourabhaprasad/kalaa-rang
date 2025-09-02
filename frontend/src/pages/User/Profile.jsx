@@ -45,50 +45,52 @@ const Profile = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 mt-24">
-      <div className="flex justify-center items-center">
-        <div className="w-full max-w-md p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold text-white mb-6 text-center">
-            Update Profile
-          </h2>
-          <form onSubmit={submitHandler}>
+    <div className="min-h-screen bg-black p-6 pt-20">
+      <div className="max-w-2xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-white mb-2">Profile Settings</h1>
+          <p className="text-gray-400">Update your account information</p>
+        </div>
+        
+        <div className="bg-black rounded-lg border border-gray-700 shadow-xl p-8">
+          <form onSubmit={submitHandler} className="space-y-6">
             {/* Name */}
-            <div className="mb-4">
-              <label htmlFor="name" className="block text-white mb-2">
-                Name
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-2">
+                Full Name
               </label>
               <input
                 type="text"
                 id="name"
-                className="form-input"
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
 
             {/* Email */}
-            <div className="mb-4">
-              <label htmlFor="email" className="block text-white mb-2">
-                Email
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-2">
+                Email Address
               </label>
               <input
                 type="email"
                 id="email"
-                className="form-input"
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
             {/* Password */}
-            <div className="mb-4">
-              <label htmlFor="password" className="block text-white mb-2">
-                Password
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-200 mb-2">
+                New Password
               </label>
               <input
                 type="password"
                 id="password"
-                className="form-input"
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all"
                 placeholder="Enter new password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -96,17 +98,17 @@ const Profile = () => {
             </div>
 
             {/* Confirm Password */}
-            <div className="mb-6">
+            <div>
               <label
                 htmlFor="confirmPassword"
-                className="block text-white mb-2"
+                className="block text-sm font-medium text-gray-200 mb-2"
               >
-                Confirm Password
+                Confirm New Password
               </label>
               <input
                 type="password"
                 id="confirmPassword"
-                className="form-input"
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all"
                 placeholder="Confirm new password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -114,21 +116,29 @@ const Profile = () => {
             </div>
 
             {/* Submit Button */}
-            <div className="flex justify-between">
+            <div className="flex gap-4">
               <button
                 type="submit"
-                className="btn"
+                className="flex-1 px-8 py-4 bg-white text-black font-bold rounded-lg transition-colors hover:bg-gray-100 disabled:opacity-50"
                 disabled={loadingUpdateProfile}
               >
-                {loadingUpdateProfile ? <Loader /> : "Update Profile"}
+                {loadingUpdateProfile ? "Updating..." : "Update Profile"}
               </button>
-              <Link to="/users-order" className="btn">
+              <Link 
+                to="/users-order" 
+                className="flex-1 px-8 py-4 bg-gray-800 text-white font-bold rounded-lg border border-gray-700 transition-colors hover:bg-gray-700 text-center"
+              >
                 My Orders
               </Link>
             </div>
           </form>
+          
+          {loadingUpdateProfile && (
+            <div className="flex justify-center mt-6">
+              <Loader />
+            </div>
+          )}
         </div>
-        {loadingUpdateProfile && <Loader />}
       </div>
     </div>
   );

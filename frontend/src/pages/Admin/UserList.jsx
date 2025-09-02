@@ -109,11 +109,11 @@ const UserList = () => {
             type="text"
             value={value}
             onChange={onChange}
-            className="w-full p-2 border border-gray-600 rounded-lg bg-transparent text-gray-300"
+            className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-all"
           />
           <button
             onClick={() => updateHandler(user._id)}
-            className="ml-2 bg-blue-600 hover:bg-blue-700 text-gray-100 py-2 px-4 rounded-lg transition"
+            className="ml-2 bg-white hover:bg-gray-100 text-black py-2 px-4 rounded-lg transition"
           >
             <FaCheck />
           </button>
@@ -137,65 +137,112 @@ const UserList = () => {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-semibold mb-4 text-gray-200 text-center md:text-left ml-[10rem]">
-        Users
-      </h1>
-      <AdminMenu />
-      {isLoading ? (
-        <Loader />
-      ) : error ? (
-        <Message variant="danger">
-          {error?.data?.message || error.error}
-        </Message>
-      ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full md:w-4/5 mx-auto text-gray-300 border border-gray-700 rounded-lg overflow-hidden">
-            <thead className="bg-gray-800">
-              <tr>
-                <th className="px-4 py-2 text-left">ID</th>
-                <th className="px-4 py-2 text-left">NAME</th>
-                <th className="px-4 py-2 text-left">EMAIL</th>
-                <th className="px-4 py-2 text-left">ADMIN</th>
-                <th className="px-4 py-2"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr
-                  key={user._id}
-                  className="border-b border-gray-700 hover:bg-gray-900"
-                >
-                  <td className="px-4 py-2 text-gray-400">{user._id}</td>
-                  <td className="px-4 py-2">
-                    {renderUserField(user, "username")}
-                  </td>
-                  <td className="px-4 py-2">
-                    {renderUserField(user, "email")}
-                  </td>
-                  <td className="px-4 py-2">
-                    {user.isAdmin ? (
-                      <FaCheck className="text-green-400" />
-                    ) : (
-                      <FaTimes className="text-red-400" />
-                    )}
-                  </td>
-                  <td className="px-4 py-2">
-                    {!user.isAdmin && (
-                      <button
-                        onClick={() => deleteHandler(user._id)}
-                        className="bg-red-400 hover:bg-red-500 text-gray-100 font-bold py-2 px-4 rounded transition"
-                      >
-                        <FaTrash />
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <div className="min-h-screen bg-black p-6 pt-20 relative overflow-hidden">
+
+      <div className="relative z-10 max-w-7xl mx-auto">
+        <AdminMenu />
+        
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-white mb-2">
+            User Management
+          </h1>
+          <p className="text-gray-400">Manage user accounts and permissions</p>
         </div>
-      )}
+
+        {isLoading ? (
+          <div className="flex justify-center items-center py-32">
+            <Loader />
+          </div>
+        ) : error ? (
+          <div className="flex justify-center items-center py-32">
+            <Message variant="danger">
+              {error?.data?.message || error.error}
+            </Message>
+          </div>
+        ) : (
+          <div className="bg-black rounded-lg border border-gray-700 shadow-xl overflow-hidden">
+            {/* Table Header */}
+            <div className="bg-gray-800 px-6 py-4 border-b border-gray-700">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+                  <div className="p-2 bg-gray-700 rounded-lg">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                    </svg>
+                  </div>
+                  All Users
+                </h2>
+                <span className="text-sm text-gray-400 bg-gray-700 px-3 py-1 rounded-full">
+                  {users?.length || 0} users
+                </span>
+              </div>
+            </div>
+
+            {/* Table Content */}
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-gray-700/50">
+                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-300 uppercase tracking-wider">User ID</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-300 uppercase tracking-wider">Name</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-300 uppercase tracking-wider">Email</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-300 uppercase tracking-wider">Admin</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-300 uppercase tracking-wider">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-700/50">
+                  {users.map((user) => (
+                    <tr
+                      key={user._id}
+                      className="group hover:bg-gradient-to-r hover:from-gray-800/50 hover:to-gray-700/50 transition-all duration-300"
+                    >
+                      <td className="px-6 py-4">
+                        <span className="text-gray-400 font-mono text-sm bg-gray-800/50 px-2 py-1 rounded">
+                          {user._id.slice(-8)}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        {renderUserField(user, "username")}
+                      </td>
+                      <td className="px-6 py-4">
+                        {renderUserField(user, "email")}
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center">
+                          {user.isAdmin ? (
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                              <span className="text-green-400 font-medium">Admin</span>
+                              <FaCheck className="text-green-400 ml-1" size={14} />
+                            </div>
+                          ) : (
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                              <span className="text-gray-400 font-medium">User</span>
+                              <FaTimes className="text-gray-400 ml-1" size={14} />
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        {!user.isAdmin && (
+                          <button
+                            onClick={() => deleteHandler(user._id, user.username)}
+                            className="group/btn relative p-2 bg-gradient-to-r from-red-500/20 to-rose-600/20 text-red-400 rounded-xl border border-red-500/30 hover:from-red-500 hover:to-rose-600 hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-red-500/25"
+                          >
+                            <FaTrash size={14} />
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

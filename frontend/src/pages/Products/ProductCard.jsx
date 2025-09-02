@@ -14,53 +14,74 @@ const ProductCard = ({ p }) => {
   };
 
   return (
-    <div className="w-[220px] h-[380px] relative bg-[#1A1A1A] rounded-lg shadow-md flex flex-col justify-between">
-      <section className="relative">
-        <Link to={`/product/${p._id}`}>
-          <span className="absolute bottom-3 right-3 bg-pink-100 text-pink-800 text-sm font-medium px-2.5 py-0.5 rounded-full dark:bg-pink-900 dark:text-pink-300">
-            {p?.brand}
-          </span>
-          <img
-            className="cursor-pointer w-full h-[170px] object-cover rounded-t-lg"
-            src={p.image}
-            alt={p.name}
-          />
-        </Link>
-        <HeartIcon product={p} />
-      </section>
-
-      <div className="p-3 flex flex-col justify-between flex-1">
-        <div className="flex justify-between items-start mb-2">
-          <h5 className="text-sm font-semibold text-white line-clamp-2">
-            {p?.name}
-          </h5>
-          <p className="text-pink-500 font-semibold text-sm">
-            {p?.price?.toLocaleString("en-US", {
-              style: "currency",
-              currency: "USD",
-            })}
-          </p>
+    <div className="group relative w-[300px] h-[460px] perspective-1000">
+      {/* Main Card Container */}
+      <div className="relative w-full h-full bg-black rounded-lg shadow-xl border border-gray-700 transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+        
+        
+        {/* Image Section with Layered Design */}
+        <div className="relative h-[220px] overflow-hidden rounded-t-lg">
+          <Link to={`/product/${p._id}`}>
+            
+            {/* Product Image */}
+            <img
+              className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-110"
+              src={p.image}
+              alt={p.name}
+            />
+            
+          
+          </Link>
+          
+          <HeartIcon product={p} />
         </div>
 
-        <p className="text-[#CFCFCF] text-xs line-clamp-3 mb-3">
-          {p?.description}
-        </p>
+        {/* Content Section with Layered Typography */}
+        <div className="relative p-6 space-y-5 flex flex-col h-[240px]">
+          {/* Decorative Line */}
+          <div className="absolute top-0 left-6 right-6 h-px bg-gray-700"></div>
+          
+          {/* Product Title */}
+          <div className="space-y-2">
+            <h3 className="text-lg font-bold text-white leading-tight line-clamp-2">
+              {p?.name}
+            </h3>
+            
+            {/* Price with Elegant Styling */}
+            <div className="flex items-center justify-between">
+              <span className="text-xl font-black text-white">
+                {p?.price?.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "INR",
+                })}
+              </span>
+            </div>
+          </div>
 
-        <section className="flex justify-between items-center mt-auto">
-          <Link
-            to={`/product/${p._id}`}
-            className="text-xs px-2 py-1 bg-purple-700 rounded hover:bg-purple-800 text-white"
-          >
-            Read More
-          </Link>
+          {/* Description */}
+          <p className="text-gray-400 text-sm leading-relaxed line-clamp-3 flex-grow">
+            {p?.description}
+          </p>
 
-          <button
-            className="p-2 rounded-full bg-gray-700 hover:bg-gray-600"
-            onClick={() => addToCartHandler(p, 1)}
-          >
-            <AiOutlineShoppingCart size={20} />
-          </button>
-        </section>
+          {/* Action Buttons with Modern Design */}
+          <div className="flex items-center gap-3 mt-auto">
+            <Link
+              to={`/product/${p._id}`}
+              className="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors border border-gray-700 text-center text-sm"
+            >
+              View Details
+            </Link>
+
+            <button
+              className="p-3.5 bg-white hover:bg-gray-100 text-black rounded-lg transition-colors"
+              onClick={() => addToCartHandler(p, 1)}
+              title="Add to Cart"
+            >
+              <AiOutlineShoppingCart size={20} />
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
   );
