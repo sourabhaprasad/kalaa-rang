@@ -1,9 +1,9 @@
 import { Link, useParams } from "react-router-dom";
-import { useGetProductsQuery } from "./redux/api/productApiSlice";
-import Loader from "./components/loader";
-import Message from "./components/Message";
-import Header from "./components/Header";
-import SmallProduct from "./pages/Products/SmallProduct";
+import { useGetProductsQuery } from "../redux/api/productApiSlice";
+import Loader from "../components/loader";
+import Message from "../components/Message";
+import Header from "../components/Header";
+import SmallProduct from "./Products/SmallProduct";
 
 const Home = () => {
   const { keyword } = useParams();
