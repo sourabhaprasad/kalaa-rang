@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../../redux/api/usersApiSlice";
 import { logout } from "../../redux/features/auth/authSlice";
 import { useGetCategoriesQuery } from "../../redux/api/categoryApiSlice";
-import FavoritesCount from "../Products/FavoritesCount";
 import {
   AiOutlineHome,
   AiOutlineShopping,
@@ -159,6 +158,20 @@ const Navigation = () => {
                             className="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white transition-colors text-sm"
                           >
                             Orders
+                          </Link>
+                          <Link
+                            to="/admin/allproductslist"
+                            onClick={() => setDropdownOpen(false)}
+                            className="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white transition-colors text-sm"
+                          >
+                            All Products
+                          </Link>
+                          <Link
+                            to="/admin/dashboard"
+                            onClick={() => setDropdownOpen(false)}
+                            className="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white transition-colors text-sm"
+                          >
+                            Dashboard
                           </Link>
                         </>
                       )}

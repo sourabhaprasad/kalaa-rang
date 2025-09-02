@@ -38,6 +38,11 @@ const ProductDetails = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (!userInfo) {
+      toast.error("Please login to write a review");
+      navigate("/login");
+      return;
+    }
     try {
       await createReview({ productId, rating, comment }).unwrap();
       refetch();
@@ -50,6 +55,11 @@ const ProductDetails = () => {
   };
 
   const addToCartHandler = () => {
+    if (!userInfo) {
+      toast.error("Please login to add items to cart");
+      navigate("/login");
+      return;
+    }
     dispatch(addToCart({ ...product, qty }));
     navigate("/cart");
   };
@@ -64,7 +74,6 @@ const ProductDetails = () => {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      
       <div className="relative z-10 container mx-auto px-6 py-12 pt-20">
         {/* Back Button */}
         <Link
@@ -82,7 +91,6 @@ const ProductDetails = () => {
           {/* Product Image */}
           <div className="relative group">
             <div className="relative bg-black rounded-lg border border-gray-700 shadow-xl overflow-hidden p-8">
-              
               <img
                 src={product.image}
                 alt={product.name}

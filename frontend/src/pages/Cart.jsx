@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaTrash, FaMinus, FaPlus } from "react-icons/fa";
+import { toast } from "react-toastify";
 import { addToCart, removeFromCart } from "../redux/features/cart/cartSlice";
 
 const Cart = () => {
@@ -8,6 +9,16 @@ const Cart = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart) || { cartItems: [] };
   const { cartItems } = cart;
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const handleCheckout = () => {
+    if (!userInfo) {
+      toast.error("Please login to proceed with checkout");
+      navigate("/login");
+      return;
+    }
+    navigate("/place-order");
+  };
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
@@ -21,10 +32,8 @@ const Cart = () => {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      
       <div className="relative z-10 container mx-auto px-6 py-12 pt-20">
-        {/* Page Header */}
-                <div className="text-center mb-12">
+        <div className="text-center mb-12">
           <h1 className="text-5xl font-black text-white mb-4">
             Shopping Cart
           </h1>
@@ -117,7 +126,6 @@ const Cart = () => {
             {/* Cart Summary */}
             <div className="xl:col-span-1">
               <div className="sticky top-8 bg-black rounded-lg border border-gray-700 shadow-xl p-8">
-                
                 <div className="relative">
                   <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
                     <div className="p-2 bg-gray-800 rounded-lg">
@@ -149,7 +157,10 @@ const Cart = () => {
                     </div>
                   </div>
                   
-                  <button className="w-full bg-white text-black font-bold py-4 px-6 rounded-lg transition-colors hover:bg-gray-100">
+                  <button
+                    onClick={handleCheckout}
+                    className="block w-full bg-white text-black font-bold py-4 px-6 rounded-lg transition-colors hover:bg-gray-100 text-center"
+                  >
                     <span className="flex items-center justify-center gap-2">
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />

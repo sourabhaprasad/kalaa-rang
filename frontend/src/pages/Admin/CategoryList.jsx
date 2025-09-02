@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import { toast } from "react-toastify";
+import { useState } from "react";
 import {
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
   useGetCategoriesQuery,
 } from "../../redux/api/categoryApiSlice";
+import { toast } from "react-toastify";
 import CategoryForm from "../../components/CategoryForm";
 import Modal from "../../components/Modal";
-import AdminMenu from "./AdminMenu";
 
 const CategoryList = () => {
   const { data: categories } = useGetCategoriesQuery();
@@ -21,7 +20,7 @@ const CategoryList = () => {
   const [updateCategory] = useUpdateCategoryMutation();
   const [deleteCategory] = useDeleteCategoryMutation();
 
-  // Create category
+
   const handleCreateCategory = async (e) => {
     e.preventDefault();
     if (!name) {
@@ -42,7 +41,7 @@ const CategoryList = () => {
     }
   };
 
-  // Update category
+
   const handleUpdateCategory = async (e) => {
     e.preventDefault();
     if (!updatingName) {
@@ -70,7 +69,7 @@ const CategoryList = () => {
     }
   };
 
-  // Delete category
+
   const handleDeleteCategory = async () => {
     if (!selectedCategory?._id) {
       toast.error("No category selected!");
@@ -88,12 +87,10 @@ const CategoryList = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black p-6 pt-20 relative overflow-hidden">
-
-      <div className="relative z-10 max-w-7xl mx-auto">
-        <AdminMenu />
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 pt-20">
         
-        {/* Header */}
+
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-white mb-2">
             Category Management
@@ -102,7 +99,7 @@ const CategoryList = () => {
         </div>
 
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-          {/* Create Category Section */}
+
           <div className="xl:col-span-1">
             <div className="bg-black rounded-lg border border-gray-700 shadow-xl p-6">
               <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-3">
@@ -122,7 +119,7 @@ const CategoryList = () => {
             </div>
           </div>
 
-          {/* Categories Grid */}
+
           <div className="xl:col-span-2">
             <div className="bg-black rounded-lg border border-gray-700 shadow-xl p-6">
               <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-3">

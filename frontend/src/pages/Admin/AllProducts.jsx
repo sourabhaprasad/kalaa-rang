@@ -1,71 +1,63 @@
 import { Link } from "react-router-dom";
 import { useAllProductsQuery } from "../../redux/api/productApiSlice";
-import AdminMenu from "./AdminMenu";
 
 const AllProducts = () => {
   const { data: products, isLoading, isError } = useAllProductsQuery();
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading products</div>;
+  if (isLoading) return (
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="text-white text-xl">Loading products...</div>
+    </div>
+  );
+  if (isError) return (
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="text-red-400 text-xl">Error loading products</div>
+    </div>
+  );
 
   return (
-    <div className="container mx-[9rem] pt-20">
-      <div className="flex flex-col md:flex-row">
-        <div className="p-3 md:w-3/4">
-          <div className="ml-[2rem] text-xl font-bold h-12 mb-4">
-            All Products ({products.length})
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {products.map((product) => (
-              <div
-                className="flex flex-col shadow-md rounded-md overflow-hidden"
-                key={product._id}
-              >
-                <div className="w-full aspect-square overflow-hidden">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-3 flex flex-col justify-between h-full">
-                  <div className="flex justify-between items-start">
-                    <h5 className="text-lg font-semibold">{product.name}</h5>
-                  </div>
-                  <p className="text-gray-500 text-sm">
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 pt-20">
+        
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-white mb-2">
+            Manage Products
+          </h1>
+          <p className="text-gray-400">Update and manage your product catalog ({products.length} products)</p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {products.map((product) => (
+            <div
+              className="bg-black rounded-lg border border-gray-700 shadow-xl overflow-hidden transition-all hover:bg-gray-900"
+              key={product._id}
+            >
+              <div className="w-full aspect-square overflow-hidden">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                />
+              </div>
+              <div className="p-4">
+                <div className="space-y-3">
+                  <h5 className="text-lg font-bold text-white">{product.name}</h5>
+                  <p className="text-gray-400 text-sm">
                     {product.description?.substring(0, 80)}...
                   </p>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center pt-3 border-t border-gray-700">
+                    <span className="text-xl font-bold text-white">₹{product.price}</span>
                     <Link
                       to={`/admin/product/update/${product._id}`}
-                      className="btn text-xs flex items-center"
+                      className="bg-white/80 text-black font-bold py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors text-sm"
                     >
-                      Update
-                      <svg
-                        className="w-3.5 h-3.5 ml-1"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 14 10"
-                      >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M1 5h12m0 0L9 1m4 4L9 9"
-                        />
-                      </svg>
+                      Update Product
                     </Link>
-                    <p className="font-semibold">₹ {product.price}</p>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-        <div className="md:w-1/4 p-3 mt-2">
-          <AdminMenu />
+            </div>
+          ))}
         </div>
       </div>
     </div>

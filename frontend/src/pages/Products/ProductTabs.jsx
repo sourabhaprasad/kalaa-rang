@@ -28,7 +28,6 @@ const ProductTabs = ({
 
   return (
     <div className="relative bg-black rounded-lg border border-gray-700 shadow-xl overflow-hidden">
-      
       <div className="flex flex-col lg:flex-row p-8">
         {/* Tab Headers */}
         <aside className="flex lg:flex-col mb-6 lg:mb-0 lg:mr-12 lg:min-w-[240px]">
@@ -57,7 +56,10 @@ const ProductTabs = ({
               {userInfo ? (
                 <form onSubmit={submitHandler} className="space-y-6">
                   <div>
-                    <label htmlFor="rating" className="block mb-3 text-lg font-medium text-gray-200">
+                    <label
+                      htmlFor="rating"
+                      className="block mb-3 text-lg font-medium text-gray-200"
+                    >
                       Rating
                     </label>
                     <select
@@ -70,14 +72,17 @@ const ProductTabs = ({
                       <option value="">Select Rating</option>
                       <option value="1">Inferior</option>
                       <option value="2">Decent</option>
-                      <option value="3">=Great</option>
+                      <option value="3">Great</option>
                       <option value="4"> Excellent</option>
                       <option value="5">Exceptional</option>
                     </select>
                   </div>
 
                   <div>
-                    <label htmlFor="comment" className="block mb-3 text-lg font-medium text-gray-200">
+                    <label
+                      htmlFor="comment"
+                      className="block mb-3 text-lg font-medium text-gray-200"
+                    >
                       Comment
                     </label>
                     <textarea
@@ -102,13 +107,26 @@ const ProductTabs = ({
               ) : (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    <svg
+                      className="w-8 h-8 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
                     </svg>
                   </div>
                   <p className="text-gray-400 text-lg mb-4">
                     Please{" "}
-                    <Link to="/login" className="text-white hover:text-gray-300 underline transition-colors">
+                    <Link
+                      to="/login"
+                      className="text-white hover:text-gray-300 underline transition-colors"
+                    >
                       sign in
                     </Link>{" "}
                     to write a review.
@@ -124,11 +142,23 @@ const ProductTabs = ({
               {product.reviews.length === 0 ? (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    <svg
+                      className="w-8 h-8 text-cyan-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                      />
                     </svg>
                   </div>
-                  <p className="text-gray-300 text-lg">No reviews yet. Be the first to review this product!</p>
+                  <p className="text-gray-300 text-lg">
+                    No reviews yet. Be the first to review this product!
+                  </p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -139,7 +169,9 @@ const ProductTabs = ({
                     >
                       <div className="flex justify-between items-start mb-4">
                         <div>
-                          <h4 className="text-white font-medium text-lg">{review.name}</h4>
+                          <h4 className="text-white font-medium text-lg">
+                            {review.name}
+                          </h4>
                           <div className="mt-2">
                             <Ratings value={review.rating} />
                           </div>
@@ -148,7 +180,9 @@ const ProductTabs = ({
                           {new Date(review.createdAt).toLocaleDateString()}
                         </span>
                       </div>
-                      <p className="text-gray-300 leading-relaxed">{review.comment}</p>
+                      <p className="text-gray-300 leading-relaxed">
+                        {review.comment}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -159,7 +193,9 @@ const ProductTabs = ({
           {/* Related Products */}
           {activeTab === 3 && (
             <div className="space-y-6">
-              <h3 className="text-xl font-semibold text-white mb-6">Related Products</h3>
+              <h3 className="text-xl font-semibold text-white mb-6">
+                Related Products
+              </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {topProducts?.map((prod) => (
                   <SmallProduct key={prod._id} product={prod} />
