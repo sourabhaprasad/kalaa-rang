@@ -161,6 +161,18 @@ const markOrderAsPaid = async (req, res) => {
         update_time: req.body.update_time,
         email_address: req.body.payer.email_address,
       };
+      
+      for (const item of order.orderItems) {
+        const product = await Product.findById(item.product);
+        if (product) {
+          product.countInStock -= item.qty;
+          if (product.countInStock < 0) {
+            product.countInStock = 0;
+          }
+          await product.save();
+        }
+      }
+      
       const updateOrder = await order.save();
       res.status(200).json(updateOrder);
     } else {
@@ -176,7 +188,8 @@ const markOrderAsDelivered = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
     if (order) {
-      (order.isDelivered = true), (order.deliveredAt = Date.now());
+      order.isDelivered = true;
+      order.deliveredAt = Date.now();
       const updatedOrder = await order.save();
       res.json(updatedOrder);
     } else {
