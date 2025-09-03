@@ -15,7 +15,7 @@ A modern, full-stack e-commerce platform built with React and Node.js, featuring
 
 ## Overview
 
-Kalaa Rang is a comprehensive e-commerce solution that provides both customer-facing shopping functionality and robust administrative tools. The platform features a modern black-themed UI with intuitive navigation, real-time inventory management, and secure payment processing through PayPal integration.
+Kalaa Rang is a comprehensive e-commerce solution that provides both customer-facing shopping functionality and robust administrative tools. The platform features a modern black-themed UI with intuitive navigation, real-time inventory management,.
 
 ## Features
 
@@ -25,7 +25,6 @@ Kalaa Rang is a comprehensive e-commerce solution that provides both customer-fa
 - **Shopping Cart**: Add, remove, and manage items with real-time updates
 - **User Authentication**: Secure registration, login, and profile management
 - **Order Management**: Place orders, track status, and view order history
-- **Payment Integration**: Secure PayPal payment processing
 - **Responsive Design**: Optimized for desktop, tablet, and mobile devices
 
 ### Admin Features
@@ -161,7 +160,6 @@ kalaa-rang/
    PORT=5000
    MONGO_URI=your_mongodb_connection_string
    JWT_SECRET=your_jwt_secret_key
-   PAYPAL_CLIENT_ID=your_paypal_client_id
    ```
 
 4. **Database Setup**
@@ -187,13 +185,12 @@ kalaa-rang/
 
 ### Environment Variables
 
-| Variable           | Description                  | Required |
-| ------------------ | ---------------------------- | -------- |
-| `NODE_ENV`         | Application environment      | Yes      |
-| `PORT`             | Backend server port          | Yes      |
-| `MONGO_URI`        | MongoDB connection string    | Yes      |
-| `JWT_SECRET`       | Secret key for JWT tokens    | Yes      |
-| `PAYPAL_CLIENT_ID` | PayPal integration client ID | Yes      |
+| Variable     | Description               | Required |
+| ------------ | ------------------------- | -------- |
+| `NODE_ENV`   | Application environment   | Yes      |
+| `PORT`       | Backend server port       | Yes      |
+| `MONGO_URI`  | MongoDB connection string | Yes      |
+| `JWT_SECRET` | Secret key for JWT tokens | Yes      |
 
 ### Redux Store Configuration
 
@@ -247,8 +244,7 @@ export const apiSlice = createApi({
 1. **Registration/Login**: Create account or sign in
 2. **Browse Products**: Explore product catalog with filters
 3. **Add to Cart**: Select products and manage cart
-4. **Checkout**: Complete purchase with PayPal
-5. **Order Tracking**: Monitor order status and history
+4. **Order Tracking**: Monitor order status and history
 
 ### Admin Workflow
 
