@@ -1,6 +1,6 @@
 # Kalaa Rang
 
-A modern, full-stack e-commerce platform built with React and Node.js, featuring a sleek dark theme UI and comprehensive admin management system.
+A modern, full-stack e-commerce platform built with React and Node.js, featuring a sleek dark theme UI and comprehensive admin management system for my small business.
 
 ## Table of Contents
 
@@ -12,8 +12,6 @@ A modern, full-stack e-commerce platform built with React and Node.js, featuring
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [API Documentation](#api-documentation)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Overview
 
@@ -70,7 +68,6 @@ Kalaa Rang is a comprehensive e-commerce solution that provides both customer-fa
 - **JWT**: JSON Web Tokens for authentication
 - **bcryptjs 3.0.2**: Password hashing and security
 - **Multer 2.0.2**: File upload handling
-- **CORS 2.8.5**: Cross-origin resource sharing
 
 ### Additional Libraries
 
