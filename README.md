@@ -74,6 +74,12 @@ Kalaa Rang is a comprehensive e-commerce solution that provides both customer-fa
 - **Moment.js 2.30.1**: Date and time manipulation
 - **React Slick 0.31.0**: Carousel and slider components
 
+## Preview
+
+https://github.com/user-attachments/assets/aa185c17-9ae5-4260-a4ff-ec1a7ca7afe0
+
+
+
 ## Project Structure
 
 ```
