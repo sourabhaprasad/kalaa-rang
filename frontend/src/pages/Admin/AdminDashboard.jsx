@@ -9,7 +9,7 @@ import {
 import { useState, useEffect } from "react";
 import OrderList from "./OrderList";
 import Loader from "../../components/loader";
-import { FaDollarSign, FaUsers, FaShoppingCart, FaRupeeSign } from "react-icons/fa";
+import { FaUsers, FaShoppingCart, FaRupeeSign } from "react-icons/fa";
 
 const AdminDashboard = () => {
   const { data: sales, isLoading } = useGetTotalSalesQuery();
@@ -21,8 +21,8 @@ const AdminDashboard = () => {
     options: {
       chart: {
         type: "line",
-        background: 'transparent',
-        foreColor: '#ffffff'
+        background: "transparent",
+        foreColor: "#ffffff",
       },
       tooltip: {
         theme: "dark",
@@ -33,7 +33,7 @@ const AdminDashboard = () => {
       },
       stroke: {
         curve: "smooth",
-        width: 3
+        width: 3,
       },
       grid: {
         borderColor: "#374151",
@@ -46,26 +46,26 @@ const AdminDashboard = () => {
         title: {
           text: "Date",
           style: {
-            color: '#9CA3AF'
-          }
+            color: "#9CA3AF",
+          },
         },
         labels: {
           style: {
-            colors: '#9CA3AF'
-          }
-        }
+            colors: "#9CA3AF",
+          },
+        },
       },
       yaxis: {
         title: {
           text: "Sales (₹)",
           style: {
-            color: '#9CA3AF'
-          }
+            color: "#9CA3AF",
+          },
         },
         labels: {
           style: {
-            colors: '#9CA3AF'
-          }
+            colors: "#9CA3AF",
+          },
         },
         min: 0,
       },
@@ -76,8 +76,8 @@ const AdminDashboard = () => {
         offsetY: -25,
         offsetX: -5,
         labels: {
-          colors: '#ffffff'
-        }
+          colors: "#ffffff",
+        },
       },
     },
     series: [{ name: "Sales", data: [] }],
@@ -85,7 +85,11 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     if (salesDetail) {
-      const formattedSalesDate = salesDetail.map((item) => ({
+      const sortedSales = [...salesDetail].sort(
+        (a, b) => new Date(a._id) - new Date(b._id)
+      );
+
+      const formattedSalesDate = sortedSales.map((item) => ({
         x: item._id,
         y: item.totalSales,
       }));
@@ -98,7 +102,6 @@ const AdminDashboard = () => {
             categories: formattedSalesDate.map((item) => item.x),
           },
         },
-
         series: [
           { name: "Sales", data: formattedSalesDate.map((item) => item.y) },
         ],
@@ -109,7 +112,6 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 pt-20">
-        
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-white mb-2">
             Admin Dashboard
@@ -123,7 +125,11 @@ const AdminDashboard = () => {
               <div>
                 <p className="text-gray-400 text-sm font-medium">Total Sales</p>
                 <h3 className="text-3xl font-bold text-white mt-2">
-                  {isLoading ? <Loader /> : `₹${sales?.totalSales?.toFixed(2) || '0.00'}`}
+                  {isLoading ? (
+                    <Loader />
+                  ) : (
+                    `₹${sales?.totalSales?.toFixed(2) || "0.00"}`
+                  )}
                 </h3>
               </div>
               <div className="p-3 bg-green-500 rounded-lg">
@@ -135,7 +141,9 @@ const AdminDashboard = () => {
           <div className="bg-black rounded-lg border border-gray-700 shadow-xl p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-400 text-sm font-medium">Total Customers</p>
+                <p className="text-gray-400 text-sm font-medium">
+                  Total Customers
+                </p>
                 <h3 className="text-3xl font-bold text-white mt-2">
                   {loading ? <Loader /> : customers?.length || 0}
                 </h3>
@@ -149,7 +157,9 @@ const AdminDashboard = () => {
           <div className="bg-black rounded-lg border border-gray-700 shadow-xl p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-400 text-sm font-medium">Total Orders</p>
+                <p className="text-gray-400 text-sm font-medium">
+                  Total Orders
+                </p>
                 <h3 className="text-3xl font-bold text-white mt-2">
                   {loadingTwo ? <Loader /> : orders?.totalOrders || 0}
                 </h3>
@@ -162,38 +172,40 @@ const AdminDashboard = () => {
         </div>
 
         <div className="bg-black rounded-lg border border-gray-700 shadow-xl p-6 mb-12">
-          <h2 className="text-2xl font-bold text-white mb-6">Sales Analytics</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">
+            Sales Analytics
+          </h2>
           <div className="w-full">
             <Chart
               options={{
                 ...state.options,
                 theme: {
-                  mode: 'dark'
+                  mode: "dark",
                 },
                 chart: {
                   ...state.options.chart,
-                  background: 'transparent',
-                  foreColor: '#ffffff'
+                  background: "transparent",
+                  foreColor: "#ffffff",
                 },
                 grid: {
-                  borderColor: '#374151'
+                  borderColor: "#374151",
                 },
                 xaxis: {
                   ...state.options.xaxis,
                   labels: {
                     style: {
-                      colors: '#9CA3AF'
-                    }
-                  }
+                      colors: "#9CA3AF",
+                    },
+                  },
                 },
                 yaxis: {
                   ...state.options.yaxis,
                   labels: {
                     style: {
-                      colors: '#9CA3AF'
-                    }
-                  }
-                }
+                      colors: "#9CA3AF",
+                    },
+                  },
+                },
               }}
               series={state.series}
               type="line"
